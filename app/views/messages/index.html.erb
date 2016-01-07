@@ -13,6 +13,18 @@
       <span class="label label-info">
       <%= message.name %></span>
       <%= message.body %>
+      
+  <!-- 
+  ルーティングに名前が設定されている場合は名前に「_path」を付けたものを使って
+  次のように記述することができる。
+  「edit」コントロールの「message」アクションを呼び出すためのルーティングには、
+  「edit_message」という名前がついているので、
+  このアクションを呼び出すためのリンクを作成する場合には
+  ルーティング名に「_path」を付けた「edit_message_path」を指定する。
+  -->
+      (<%= link_to "edit" , edit_message_path(message) %>
+       <%= link_to "destroy" , message , method: :delete, data: { confirm: '削除してもよろしいですか？' } %>
+      )
       <br>
     <% end %>
   </div>

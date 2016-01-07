@@ -1,27 +1,51 @@
-<%= form_for(@message) do |f| %>
+<!-- 5.4フォームの作成を参照-->
+<!-- app/controllers/messages_controller.rbを参照-->
+<!-- form_forの引数である@messageにMessage.newを代入する -->
 
-    <% if @message.errors.present? %>
-      <div class="alert alert-danger">
-        <%= alert %>
-        <ul>
-          <% @message.errors.full_messages.each do |full_message| %>
-            <li>
-              <%= full_message %>
-            </li>
-          <% end %> 
-        </ul>
+<!--縦に並べたいとき <form class="form-horizontal">は、28行目にまとめていれる。
+　　∵form_for が form タグを生成するので、 
+　　　form_for の引数で form タグにつけるクラスを指定する必要があるため。
+-->
+<%= form_for(@message, html: {class: "form-horizontal"}) do |f| %>
+
+<!-- Individual form controls automatically receive some global styling.
+All textual <input>, <textarea>, and <select> elements with .form-control are 
+set to width: 100%; by default.
+ -->
+
+    <div class="form-group">
+      <label class="col-xs-1 control-label">
+         名前:
+      </label>
+      <div class="col-xs-5">
+        <%= f.text_field :name, class: "form-control" %>
       </div>
-    <% end %>
+    </div>   
 
-
-
-  名前:
-  <%= f.text_field :name %>
-
-  内容:
-  <%= f.text_field :body %>
-  <%= f.submit class: "btn btn-sm btn-primary" %>
+<!-- 一行の入力フォームはtext_field、複数行はtext_areaと使い分ける。
+     text_fieldにすると、改めて行数を指定しなくてよい。
+     また、入力フォームの横幅は、改めてdivクラスで指定する。
+-->
+    <div class="form-group">
+      <label class="col-xs-1 control-label">
+       内容:
+      </label>
+      <div class="col-xs-8">
+         <%= f.text_area :body , class: "form-control" , :cols => 60, :rows => 10 , :placeholder=>"メッセージをお願いします。" %>
+      </div>
+    </div>
+    
+    <div class="form-group">
+     <div class="col-sm-offset-1 col-sm-10">
+      <%= f.submit "送信", class: "btn btn-primary" %>
+     </div>
+    </div>
+    
 <% end %>
+
+
+
+
 
 
   
